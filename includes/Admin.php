@@ -49,6 +49,7 @@ class Admin {
 					}
 				?>
 			</div>
+			<div>Your sitemap is available <a href="" target="_blank">here</a></div>
 		</div>
 		<?php
 	}
@@ -104,7 +105,7 @@ class Admin {
 				echo $links_content;
 
 				delete_option( 'seo-link-explorer' );
-				update_option( 'seo-link-explorer', $links_content );
+				update_option( 'seo-link-explorer', $linked_pages );
 
 				//Save to a file
 				$uploads_dir = trailingslashit( wp_upload_dir()['basedir'] ) . 'seo-link-explorer';
