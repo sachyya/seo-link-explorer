@@ -2,6 +2,8 @@
 
 namespace SEOLinkExplorer;
 
+use SEOLinkExplorer\Admin;
+
 final class Init {
 
 	const MINIMUM_PHP_VERSION = '7.2';
@@ -11,7 +13,7 @@ final class Init {
 	/**
 	 * @return Init|null
 	 */
-	public static function getInstance(): ?Init {
+	public static function get_instance(): ?Init {
 		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self();
 		}
@@ -32,7 +34,7 @@ final class Init {
 
 		$this->autoload();
 
-		add_action( 'plugins_loaded', array( $this, 'initPlugin' ) );
+		add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		register_activation_hook( SEO_LINK_EXPLORER_FILE_PATH, [ $this, 'plugin_activated' ] );
 		register_deactivation_hook( SEO_LINK_EXPLORER_FILE_PATH, [ $this, 'plugin_deactivated' ] );
 	}
@@ -51,11 +53,11 @@ final class Init {
 		if ( isset( $_GET['activate'] ) ) {
 			unset( $_GET['activate'] );
 		}
-		
+
 		$message = sprintf(
 		/* translators: 1: Plugin name 2: PHP 3: Required PHP version */
 			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'seo-link-explorer' ),
-			'<strong>' . esc_html__( 'Search with Typesense', 'seo-link-explorer' ) . '</strong>',
+			'<strong>' . esc_html__( 'SEO Link Exporer', 'seo-link-explorer' ) . '</strong>',
 			'<strong>' . esc_html__( 'PHP', 'seo-link-explorer' ) . '</strong>',
 			self::MINIMUM_PHP_VERSION
 		);
@@ -65,14 +67,16 @@ final class Init {
 	}
 
 	/**
-	 * Autoload - PSR 4 Compliance
+	 * Autoload classes
 	 */
 	public function autoload() {
 		require_once SEO_LINK_EXPLORER_ROOT_DIR_PATH . '/vendor/autoload.php';
 	}
 
-	public function initPlugin() {
+	public function init_plugin() {
 		add_action( 'init', [ $this, 'load_textdomain' ] );
+
+		Admin::get_instance();
 	}
 
 	public function load_textdomain() {
@@ -89,4 +93,4 @@ final class Init {
 	}
 }
 
-Init::getInstance();
+Init::get_instance();
