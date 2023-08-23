@@ -113,10 +113,6 @@ class Admin {
 				delete_option( 'seo-link-explorer' );
 				update_option( 'seo-link-explorer', $linked_pages );
 
-				//Save to a file
-				$uploads_dir = trailingslashit( wp_upload_dir()['basedir'] ) . 'seo-link-explorer';
-				wp_mkdir_p( $uploads_dir );
-
 				SaveFile::save_sitemap_html( $links_content );
 				SaveFile::save_page_html( $links_content );
 			} else {
