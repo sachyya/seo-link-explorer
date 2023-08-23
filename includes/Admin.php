@@ -94,23 +94,34 @@ class Admin {
 
 			if ( ! empty( $linked_pages ) ) {
 
-				$html_content = '<h2>Linked Pages:</h2>';
-				$html_content .= '<ul>';
+				$links_content = '<h2>Linked Pages:</h2>';
+				$links_content .= '<ul>';
 				foreach ( $linked_pages as $link ) {
-					$html_content .= '<li><a href="' . esc_url( $link ) . '">' . esc_html( $link ) . '</a></li>';
+					$links_content .= '<li><a href="' . esc_url( $link ) . '">' . esc_html( $link ) . '</a></li>';
 				}
-				$html_content .= '</ul>';
+				$links_content .= '</ul>';
 
-				echo $html_content;
+				echo $links_content;
 
 				delete_option( 'seo-link-explorer' );
-				update_option( 'seo-link-explorer', $html_content );
+				update_option( 'seo-link-explorer', $links_content );
 
 				//Save to a file
 				$uploads_dir = trailingslashit( wp_upload_dir()['basedir'] ) . 'seo-link-explorer';
 				wp_mkdir_p( $uploads_dir );
+
+				$html_content = '<!DOCTYPE html>
+				<html>
+				<head>
+					<title>' . get_bloginfo() . ' - Sitemap</title>
+				</head>
+				<body>
+				' . $links_content . '
+				</body>
+				</html>';
+
 				$file_path = $uploads_dir . '/sitemap.html';
-				file_put_contents( $file_path, 'sachet' );
+				file_put_contents( $file_path, $html_content );
 
 			} else {
 				echo 'No linked pages found on the homepage.';
