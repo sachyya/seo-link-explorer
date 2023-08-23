@@ -14,3 +14,33 @@
  * Text Domain:       seo-link-explorer
  * Domain Path:       /languages
  */
+
+defined( 'ABSPATH' ) or die( 'Script Kiddies Go Away' );
+
+if ( ! defined( 'SEO_LINK_EXPLORER_VERSION' ) ) {
+	define( 'SEO_LINK_EXPLORER_VERSION', '1.0.0' );
+}
+
+if ( ! defined( 'SEO_LINK_EXPLORER_FILE_PATH' ) ) {
+	define( 'SEO_LINK_EXPLORER_FILE_PATH', __FILE__ );
+}
+
+if ( ! defined( 'SEO_LINK_EXPLORER_ROOT_DIR_PATH' ) ) {
+	define( 'SEO_LINK_EXPLORER_ROOT_DIR_PATH', DIRNAME( __FILE__ ) );
+}
+
+if ( ! defined( 'SEO_LINK_EXPLORER_ROOT_URI_PATH' ) ) {
+	define( 'SEO_LINK_EXPLORER_ROOT_URI_PATH', plugin_dir_url( __FILE__ ) );
+}
+
+if ( ! defined( 'SEO_LINK_EXPLORER_BASE_FILE' ) ) {
+	define( 'SEO_LINK_EXPLORER_BASE_FILE', plugin_basename( __FILE__ ) );
+}
+
+function pre( $a ) {
+	echo '<pre>';
+	print_r( $a );
+	echo '</pre>';
+}
+
+require_once SEO_LINK_EXPLORER_ROOT_DIR_PATH . '/includes/Init.php';
