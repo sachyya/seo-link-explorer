@@ -109,8 +109,8 @@ class Admin {
 				//Save to a file
 				$uploads_dir = trailingslashit( wp_upload_dir()['basedir'] ) . 'seo-link-explorer';
 				wp_mkdir_p( $uploads_dir );
-//				$file_path = '/path/to/your/directory/custom_content.html';
-//				file_put_contents( $file_path, $html_content );
+				$file_path = $uploads_dir . '/sitemap.html';
+				file_put_contents( $file_path, 'sachet' );
 
 			} else {
 				echo 'No linked pages found on the homepage.';
