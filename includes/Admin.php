@@ -1,6 +1,9 @@
 <?php
 
 namespace SEOLinkExplorer;
+
+use SEOLinkExplorer\SaveFile;
+
 class Admin {
 
 	public static ?Admin $_instance = null;
@@ -114,24 +117,8 @@ class Admin {
 				$uploads_dir = trailingslashit( wp_upload_dir()['basedir'] ) . 'seo-link-explorer';
 				wp_mkdir_p( $uploads_dir );
 
-				$html_content = '<!DOCTYPE html>
-				<html>
-				<head>
-					<title>' . get_bloginfo() . ' - Sitemap</title>
-				</head>
-				<body>
-				' . $links_content . '
-				</body>
-				</html>';
-
-				//Save sitemap.html
-				$file_path = $uploads_dir . '/sitemap.html';
-				file_put_contents( $file_path, $html_content );
-
-				//Save homepage.html
-				$file_path = $uploads_dir . '/homepage.html';
-				file_put_contents( $file_path, $homepage_html_version );
-
+				SaveFile::save_sitemap_html( $links_content );
+				SaveFile::save_page_html( $links_content );
 			} else {
 				echo 'No linked pages found on the homepage.';
 			}
