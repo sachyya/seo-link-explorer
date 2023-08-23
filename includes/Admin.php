@@ -85,7 +85,10 @@ class Admin {
 
 		if ( ! empty( $homepage_content ) ) {
 			$dom = new \DOMDocument();
-			@$dom -> loadHTML( $homepage_content ); // Suppress errors caused by invalid HTML
+			$dom -> loadHTML( $homepage_content ); // Suppress errors caused by invalid HTML
+
+			$homepage_html_version = $dom->saveHTML();
+
 			$links        = $dom -> getElementsByTagName( 'a' );
 			$linked_pages = array ();
 
@@ -121,8 +124,13 @@ class Admin {
 				</body>
 				</html>';
 
+				//Save sitemap.html
 				$file_path = $uploads_dir . '/sitemap.html';
 				file_put_contents( $file_path, $html_content );
+
+				//Save homepage.html
+				$file_path = $uploads_dir . '/homepage.html';
+				file_put_contents( $file_path, $homepage_html_version );
 
 			} else {
 				echo 'No linked pages found on the homepage.';
