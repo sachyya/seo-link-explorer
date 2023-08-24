@@ -42,14 +42,7 @@ class Admin {
 			<div id="seo-link-explorer__results">
 				<?php
 				$linked_pages = get_option('seo-link-explorer' );
-				if ( ! empty( $linked_pages ) ) {
-					echo '<h2>Linked Pages:</h2>';
-					echo '<ul>';
-						foreach ( $linked_pages as $link ) {
-						echo '<li><a href="' . esc_url( $link ) . '">' . esc_html( $link ) . '</a></li>';
-						}
-						echo '</ul>';
-					}
+				echo $this->linked_pages_html( $linked_pages );
 				?>
 			</div>
 			<div>Your sitemap is available <a href="<?php echo esc_url(SaveFile::get_sitemap_url() ); ?>" target="_blank">here</a></div>
@@ -101,15 +94,9 @@ class Admin {
 
 			if ( ! empty( $linked_pages ) ) {
 
-				$links_content = '<h2>Linked Pages:</h2>';
-				$links_content .= '<ul>';
-				foreach ( $linked_pages as $link ) {
-					$links_content .= '<li><a href="' . esc_url( $link ) . '">' . esc_html( $link ) . '</a></li>';
-				}
-				$links_content .= '</ul>';
-
+				$links_content = $this->linked_pages_html( $linked_pages );
 				echo $links_content;
-
+				
 				delete_option( 'seo-link-explorer' );
 				update_option( 'seo-link-explorer', $linked_pages );
 
@@ -121,5 +108,16 @@ class Admin {
 		} else {
 			echo 'Error fetching homepage content.';
 		}
+	}
+
+	public function linked_pages_html( $linked_pages ) {
+		$links_content = '<h2>' . __( 'Linked Pages:', 'seo-link-explorer' ) . '</h2>';
+		$links_content .= '<ul>';
+		foreach ( $linked_pages as $link ) {
+			$links_content .= '<li><a href="' . esc_url( $link ) . '">' . esc_html( $link ) . '</a></li>';
+		}
+		$links_content .= '</ul>';
+
+		return $links_content;
 	}
 }
