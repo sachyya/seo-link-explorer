@@ -83,11 +83,16 @@ class Admin {
 				?>
 			</div>
 			<div>
-				<?php echo sprintf(
-					__( 'Your sitemap is available %1$shere%2$s.', 'seo-link-explorer' ),
-					'<a href="' . esc_url( SaveFile::get_sitemap_url() ) . '">',
-					'</a>'
-				); ?>
+				<?php
+				$sitemap_url = SaveFile ::get_sitemap_url();
+				if( $sitemap_url ) {
+					echo sprintf(
+						__( 'Your sitemap is available %1$shere%2$s.' , 'seo-link-explorer' ) ,
+						'<a href="' . esc_url( $sitemap_url ) . '">' ,
+						'</a>'
+					);
+				}
+				?>
 			</div>
 		</div>
 		<?php
@@ -159,6 +164,8 @@ class Admin {
 				SaveFile::delete_files();
 				SaveFile::save_sitemap_html( $links_content );
 				SaveFile::save_page_html( $homepage_html_version );
+
+				SaveFile ::get_sitemap_url();
 			} else {
 				echo __( 'No linked pages found on the homepage.', 'seo-link-explorer' );
 			}

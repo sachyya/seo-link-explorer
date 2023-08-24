@@ -40,6 +40,21 @@ class SaveFile {
 		return self:: $_instance;
 	}
 
+	public static function get_plugin_upload_dir() {
+		$uploads_dir = trailingslashit( wp_upload_dir()['basedir'] );
+		return $uploads_dir . self::$folder_name;
+	}
+
+	public static function get_plugin_upload_url() {
+		$uploads_dir = trailingslashit( wp_upload_dir()['baseurl'] );
+		return $uploads_dir . self::$folder_name;
+	}
+
+	public static function get_plugin_upload_files() {
+		$plugin_upload_dir = self::get_plugin_upload_dir();
+
+		return scandir( $plugin_upload_dir );
+	}
 	/**
 	 * Save HTML content to a file.
 	 *
@@ -47,23 +62,19 @@ class SaveFile {
 	 * @param string $content The HTML content to save.
 	 */
 	public static function save_file( $filename, $content ) {
-		$uploads_dir = trailingslashit( wp_upload_dir()['basedir'] );
-		$plugin_upload_dir = $uploads_dir . self::$folder_name;
-		wp_mkdir_p( $uploads_dir );
+		$plugin_upload_dir = self::get_plugin_upload_dir();
+		wp_mkdir_p( $plugin_upload_dir );
 
 		$file_path = trailingslashit( $plugin_upload_dir ) . $filename;
 		file_put_contents( $file_path, $content );
 	}
 
 	public static function delete_files() {
-		$uploads_dir = trailingslashit( wp_upload_dir()['basedir'] );
-		$plugin_upload_dir = $uploads_dir . self::$folder_name;
-
-		$files = scandir( $plugin_upload_dir );
+		$files = self::get_plugin_upload_files();
 		foreach ( $files as $filename ) {
 			// Check if the filename starts with "sitemap-" or "homepage-"
 			if ( strpos( $filename, 'sitemap-' ) === 0 || strpos( $filename, 'homepage-' ) === 0 ) {
-				$file_path = trailingslashit( $plugin_upload_dir ) . $filename;
+				$file_path = self::get_plugin_upload_dir() . '/' . $filename;
 
 				unlink( $file_path );
 			}
@@ -105,7 +116,19 @@ class SaveFile {
 	 * @return string The URL of the sitemap HTML file.
 	 */
 	public static function get_sitemap_url() {
-		$uploads_url = trailingslashit( wp_upload_dir()['baseurl'] );
-		return $uploads_url . self::$folder_name . '/sitemap.html';
+		$uploads_url = self::get_plugin_upload_url();
+		$files = self::get_plugin_upload_files();
+		$generated_filename = '';
+		foreach ( $files as $filename ) {
+			// Check if the filename starts with "sitemap-" and return it
+			if ( strpos( $filename, 'sitemap-' ) === 0 ) {
+				$generated_filename = $filename;
+			}
+		}
+		if( $generated_filename ) {
+			return $uploads_url . '/' . $generated_filename;
+		} else {
+			return false;
+		}
 	}
 }
