@@ -28,7 +28,7 @@ class SaveFile {
 		$homepage_html_version = '<!DOCTYPE html>
 				<html>
 				<head>
-					<title>' . get_bloginfo() . ' - Sitemap</title>
+					<title>' . esc_html( get_bloginfo() ) . ' - Sitemap</title>
 				</head>
 				<body>
 				' . $content . '

@@ -30,22 +30,37 @@ class Admin {
 
 	public function register_submenu() {
 		add_submenu_page(
-			'options-general.php', __( 'SEO Link Explorer', 'seo-link-explorer' ), __( 'SEO Link Explorer', 'seo-link-explorer' ), 'manage_options', 'seo-link-explorer', array( $this, 'output_page_content' )
+			'options-general.php',
+			__( 'SEO Link Explorer', 'seo-link-explorer' ),
+			__( 'SEO Link Explorer', 'seo-link-explorer' ),
+			'manage_options',
+			'seo-link-explorer',
+			array( $this, 'output_page_content' )
 		);
 	}
 
 	public  function output_page_content() { ?>
 		<div class="wrap seo-link-explorer">
 			<h1><?php echo __( 'SEO Link Explorer', 'seo-link-explorer' ); ?></h1>
-			<p class="submit"><input type="submit" name="submit" id="seo-link-explorer__button" class="button button-primary" value="<?php echo __( 'Crawl Homepage', 'seo-link-explorer' ); ?>"></p>
-
+			<p class="submit">
+				<input type="submit" name="submit" id="seo-link-explorer__button" class="button button-primary"
+					   value="<?php echo __( 'Crawl Homepage', 'seo-link-explorer' ); ?>">
+			</p>
 			<div id="seo-link-explorer__results">
 				<?php
 				$linked_pages = get_option('seo-link-explorer' );
-				echo $this->linked_pages_html( $linked_pages );
+				if( ! empty( $linked_pages ) ) {
+					echo $this->linked_pages_html( $linked_pages );
+				}
 				?>
 			</div>
-			<div>Your sitemap is available <a href="<?php echo esc_url(SaveFile::get_sitemap_url() ); ?>" target="_blank">here</a></div>
+			<div>
+				<?php echo sprintf(
+					__( 'Your sitemap is available %1$shere%2$s.', 'seo-link-explorer' ),
+					'<a href="' . esc_url( SaveFile::get_sitemap_url() ) . '">',
+					'</a>'
+				); ?>
+			</div>
 		</div>
 		<?php
 	}
@@ -96,7 +111,7 @@ class Admin {
 
 				$links_content = $this->linked_pages_html( $linked_pages );
 				echo $links_content;
-				
+
 				delete_option( 'seo-link-explorer' );
 				update_option( 'seo-link-explorer', $linked_pages );
 
