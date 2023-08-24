@@ -2,7 +2,7 @@
 
 namespace SEOLinkExplorer;
 
-use SEOLinkExplorer\SaveFile;
+use SEOLinkExplorer\File;
 
 /**
  * Class Admin
@@ -84,7 +84,7 @@ class Admin {
 			</div>
 			<div id="seo-link-explorer__sitemap_url">
 				<?php
-				$sitemap_url = SaveFile ::get_sitemap_url();
+				$sitemap_url = File ::get_sitemap_url();
 				if( $sitemap_url ) {
 					echo sprintf(
 						__( 'Your sitemap is available %1$shere%2$s' , 'seo-link-explorer' ) ,
@@ -115,7 +115,7 @@ class Admin {
 		wp_localize_script('seo-link-explorer', 'seo_link_explorer_params', array(
 			'ajax_url' => admin_url('admin-ajax.php'),
 			'nonce' => wp_create_nonce('seo-link-explorer-nonce'),
-			'sitemap_filename' => SaveFile::get_sitemap_url()
+			'sitemap_filename' => File ::get_sitemap_url()
 		));
 	}
 
@@ -130,7 +130,7 @@ class Admin {
 		$linked_pages_html = ob_get_clean(); // Get and clean the output buffer
 		$data = array(
 			'linked_pages_html' => $linked_pages_html,
-			'sitemap_url' => SaveFile::get_sitemap_url() // Send sitemap_url too to update on ajax call
+			'sitemap_url' => File ::get_sitemap_url() // Send sitemap_url too to update on ajax call
 		);
 		wp_send_json($data);
 		wp_die();
@@ -165,11 +165,11 @@ class Admin {
 				update_option( 'seo-link-explorer', $linked_pages );
 
 				// Delete files before saving
-				SaveFile::delete_files();
-				SaveFile::save_page_html( $homepage_html_version );
-				$sitemap_filename = SaveFile::save_sitemap_html( $links_content );
+				File ::delete_files();
+				File ::save_page_html( $homepage_html_version );
+				$sitemap_filename = File ::save_sitemap_html( $links_content );
 
-				// Save the generate sitemap filename url to be used in ajax call
+				// Save the generate sitemap filename to be used in ajax call
 				update_option( 'seo-link-explorer-sitemap-filename', $sitemap_filename );
 			} else {
 				echo __( 'No linked pages found on the homepage.', 'seo-link-explorer' );

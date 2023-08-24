@@ -3,7 +3,7 @@
 namespace SEOLinkExplorer;
 
 /**
- * Class SaveFile
+ * Class File
  *
  * This class handles saving HTML files, such as sitemap and page content, for the SEO Link Explorer plugin.
  * It provides methods to create and manage directories, save HTML content, and retrieve URLs.
@@ -11,14 +11,14 @@ namespace SEOLinkExplorer;
  * @package SEOLinkExplorer
  * @since 1.0.0
  */
-class SaveFile {
+class File {
 
 	/**
-	 * The singleton instance of the SaveFile class.
+	 * The singleton instance of the File class.
 	 *
-	 * @var SaveFile|null
+	 * @var File|null
 	 */
-	public static ?SaveFile $_instance = null;
+	public static ?File $_instance = null;
 
 	/**
 	 * The folder name for storing plugin-related files.
@@ -28,11 +28,11 @@ class SaveFile {
 	public static $folder_name = 'seo-link-explorer';
 
 	/**
-	 * Get the singleton instance of the SaveFile class.
+	 * Get the singleton instance of the File class.
 	 *
-	 * @return SaveFile|null The SaveFile instance.
+	 * @return File|null The File instance.
 	 */
-	public static function get_instance(): ?SaveFile {
+	public static function get_instance(): ?File {
 		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self();
 		}
