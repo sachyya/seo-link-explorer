@@ -5,6 +5,7 @@ namespace SEOLinkExplorer;
 use SEOLinkExplorer\Setting;
 use SEOLinkExplorer\Cron;
 use SEOLinkExplorer\Event;
+use SEOLinkExplorer\Shortcode;
 
 /**
  * Class Init
@@ -122,6 +123,9 @@ final class Init {
 
 		// Initialize the Cron class
 		Cron::get_instance();
+
+		// Initialize the Shortcode class
+		Shortcode::get_instance();
 	}
 
 	/**
