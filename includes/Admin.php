@@ -52,7 +52,7 @@ class Admin {
 					}
 				?>
 			</div>
-			<div>Your sitemap is available <a href="" target="_blank">here</a></div>
+			<div>Your sitemap is available <a href="<?php echo esc_url(SaveFile::get_sitemap_url() ); ?>" target="_blank">here</a></div>
 		</div>
 		<?php
 	}

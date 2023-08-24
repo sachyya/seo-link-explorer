@@ -41,4 +41,9 @@ class SaveFile {
 	public static function save_sitemap_html( $content ) {
 		self::save_file( 'sitemap.html', $content );
 	}
+
+	public static function get_sitemap_url() {
+		$uploads_url = trailingslashit( wp_upload_dir()['baseurl'] );
+		return $uploads_url . self::$folder_name . '/sitemap.html';
+	}
 }
