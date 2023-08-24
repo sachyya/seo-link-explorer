@@ -1,12 +1,12 @@
 <?php
-
 namespace SEOLinkExplorer;
+
+use SEOLinkExplorer\Admin;
 
 /**
  * Class Cron
  *
- * This class handles the administration interface of the SEO Link Explorer plugin.
- * It registers the plugin's submenu, enqueues scripts, and manages AJAX requests.
+ * This class handles scheduling and executing the crawling process on a predefined time interval.
  *
  * @package SEOLinkExplorer
  * @since 1.0.0
@@ -36,8 +36,42 @@ class Cron {
 	/**
 	 * Constructor for the Cron class.
 	 *
-	 * Sets up actions and hooks related to the administration interface.
+	 * Sets up actions and hooks for scheduling and executing the crawling process.
 	 */
 	public function __construct() {
+		add_filter('cron_schedules', array( $this, 'add_custom_cron_schedule' ) );
+		add_action('wp', array( $this, 'schedule_crawler_execution') );
+		add_action('seo_link_explorer_event', array( $this, 'run_crawler_on_schedule' ) );
+	}
+
+	/**
+	 * Add a custom cron schedule for running the crawler.
+	 *
+	 * @param array $schedules Existing cron schedules.
+	 * @return array Modified cron schedules.
+	 */
+	public function add_custom_cron_schedule( $schedules ) {
+		$schedules['seo_link_explorer_every_hour'] = array(
+			'interval' => HOUR_IN_SECONDS,
+			'display' => __('SEO Link Explorer Every Hour', 'seo-link-explorer' )
+		);
+		return $schedules;
+	}
+
+	/**
+	 * Schedule the crawler execution at the defined interval.
+	 */
+	public function schedule_crawler_execution() {
+		if ( ! wp_next_scheduled('seo_link_explorer_event' ) ) {
+			wp_schedule_event( time(), 'seo_link_explorer_every_hour', 'seo_link_explorer_event' );
+		}
+	}
+
+	/**
+	 * Execute the crawler on the defined schedule.
+	 */
+	public function run_crawler_on_schedule() {
+		$admin_instance = Admin::get_instance();
+		$admin_instance->ajax_crawl_homepage();
 	}
 }

@@ -3,6 +3,7 @@
 namespace SEOLinkExplorer;
 
 use SEOLinkExplorer\Admin;
+use SEOLinkExplorer\Cron;
 
 /**
  * Class Init
@@ -114,6 +115,9 @@ final class Init {
 
 		// Initialize the Admin class
 		Admin::get_instance();
+
+		// Initialize the Cron class
+		Cron::get_instance();
 	}
 
 	/**
