@@ -120,6 +120,12 @@ class File {
 	 */
 	public static function get_sitemap_url() {
 		$uploads_url = self::get_plugin_upload_url();
-		return $uploads_url . '/' . get_option( 'seo-link-explorer-sitemap-filename' );
+		$filename = get_option( 'seo-link-explorer-sitemap-filename' );
+
+		if( ! $filename ) {
+			return false;
+		}
+
+		return $uploads_url . '/' . $filename;
 	}
 }

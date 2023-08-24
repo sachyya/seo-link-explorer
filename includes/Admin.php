@@ -91,6 +91,13 @@ class Admin {
 						'<a target="_blank" href="' . esc_url( $sitemap_url ) . '">' ,
 						'</a>'
 					);
+				} else {
+					// Add a placeholder text and html to show the link
+					echo sprintf(
+						__( 'Your sitemap will be available %1$shere%2$s once you crawl it.' , 'seo-link-explorer' ) ,
+						'<a target="_blank" href="#">' ,
+						'</a>'
+					);
 				}
 				?>
 			</div>
