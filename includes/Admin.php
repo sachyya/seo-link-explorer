@@ -82,13 +82,13 @@ class Admin {
 				}
 				?>
 			</div>
-			<div>
+			<div id="seo-link-explorer__sitemap_url">
 				<?php
 				$sitemap_url = SaveFile ::get_sitemap_url();
 				if( $sitemap_url ) {
 					echo sprintf(
-						__( 'Your sitemap is available %1$shere%2$s.' , 'seo-link-explorer' ) ,
-						'<a href="' . esc_url( $sitemap_url ) . '">' ,
+						__( 'Your sitemap is available %1$shere%2$s' , 'seo-link-explorer' ) ,
+						'<a target="_blank" href="' . esc_url( $sitemap_url ) . '">' ,
 						'</a>'
 					);
 				}
@@ -114,7 +114,8 @@ class Admin {
 		// Localize data for JavaScript
 		wp_localize_script('seo-link-explorer', 'seo_link_explorer_params', array(
 			'ajax_url' => admin_url('admin-ajax.php'),
-			'nonce' => wp_create_nonce('seo-link-explorer-nonce')
+			'nonce' => wp_create_nonce('seo-link-explorer-nonce'),
+			'sitemap_filename' => SaveFile::get_sitemap_url()
 		));
 	}
 
@@ -126,9 +127,12 @@ class Admin {
 
 		ob_start(); // Start output buffering
 		$this->display_linked_pages();
-		$response = ob_get_clean(); // Get and clean the output buffer
-		echo $response;
-
+		$linked_pages_html = ob_get_clean(); // Get and clean the output buffer
+		$data = array(
+			'linked_pages_html' => $linked_pages_html,
+			'sitemap_url' => SaveFile::get_sitemap_url() // Send sitemap_url too to update on ajax call
+		);
+		wp_send_json($data);
 		wp_die();
 	}
 
@@ -162,10 +166,11 @@ class Admin {
 
 				// Delete files before saving
 				SaveFile::delete_files();
-				SaveFile::save_sitemap_html( $links_content );
 				SaveFile::save_page_html( $homepage_html_version );
+				$sitemap_filename = SaveFile::save_sitemap_html( $links_content );
 
-				SaveFile ::get_sitemap_url();
+				// Save the generate sitemap filename url to be used in ajax call
+				update_option( 'seo-link-explorer-sitemap-filename', $sitemap_filename );
 			} else {
 				echo __( 'No linked pages found on the homepage.', 'seo-link-explorer' );
 			}

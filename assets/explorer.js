@@ -6,7 +6,10 @@ jQuery(document).ready(function($) {
 		};
 
 		$.post(seo_link_explorer_params.ajax_url, data, function(response) {
-			$('#seo-link-explorer__results').html(response);
+			$('#seo-link-explorer__results').html(response.linked_pages_html);
+
+			// Update the href attribute of the <a> element in sitemap URL
+			$('#seo-link-explorer__sitemap_url a').attr('href', response.sitemap_url);
 		});
 	});
 });

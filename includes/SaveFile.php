@@ -98,6 +98,9 @@ class SaveFile {
 				</html>';
 
 		self::save_file( $filename, $sitemap_html_version );
+
+		// Return filename to be saved to option table
+		return $filename;
 	}
 
 	/**
@@ -117,18 +120,6 @@ class SaveFile {
 	 */
 	public static function get_sitemap_url() {
 		$uploads_url = self::get_plugin_upload_url();
-		$files = self::get_plugin_upload_files();
-		$generated_filename = '';
-		foreach ( $files as $filename ) {
-			// Check if the filename starts with "sitemap-" and return it
-			if ( strpos( $filename, 'sitemap-' ) === 0 ) {
-				$generated_filename = $filename;
-			}
-		}
-		if( $generated_filename ) {
-			return $uploads_url . '/' . $generated_filename;
-		} else {
-			return false;
-		}
+		return $uploads_url . '/' . get_option( 'seo-link-explorer-sitemap-filename' );
 	}
 }
