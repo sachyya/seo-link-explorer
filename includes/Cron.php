@@ -72,6 +72,6 @@ class Cron {
 	 */
 	public function run_crawler_on_schedule() {
 		$admin_instance = Admin::get_instance();
-		$admin_instance->ajax_crawl_homepage();
+		$admin_instance->display_linked_pages();
 	}
 }

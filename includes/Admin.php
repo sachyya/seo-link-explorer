@@ -28,6 +28,7 @@ class Admin {
 	 * @return Admin|null The Admin instance.
 	 */
 	public static function get_instance(): ?Admin {
+
 		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self();
 		}
@@ -121,8 +122,8 @@ class Admin {
 		ob_start(); // Start output buffering
 		$this->display_linked_pages();
 		$response = ob_get_clean(); // Get and clean the output buffer
-
 		echo $response;
+
 		wp_die();
 	}
 
