@@ -4,30 +4,54 @@ namespace SEOLinkExplorer;
 
 use SEOLinkExplorer\SaveFile;
 
+/**
+ * Class Admin
+ *
+ * This class handles the administration interface of the SEO Link Explorer plugin.
+ * It registers the plugin's submenu, enqueues scripts, and manages AJAX requests.
+ *
+ * @package SEOLinkExplorer
+ * @since 1.0.0
+ */
 class Admin {
 
+	/**
+	 * The singleton instance of the Admin class.
+	 *
+	 * @var Admin|null
+	 */
 	public static ?Admin $_instance = null;
 
 	/**
-	 * @return Admin|null
+	 * Get the singleton instance of the Admin class.
+	 *
+	 * @return Admin|null The Admin instance.
 	 */
 	public static function get_instance(): ?Admin {
-		if ( is_null( self ::$_instance ) ) {
-			self ::$_instance = new self();
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self();
 		}
 
 		return self:: $_instance;
 	}
 
+	/**
+	 * Constructor for the Admin class.
+	 *
+	 * Sets up actions and hooks related to the administration interface.
+	 */
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'register_submenu' ) );
 		add_action('admin_enqueue_scripts', array( $this, 'enqueue_scripts') );
 
-		// Add AJAX action
+		// Add AJAX actions for crawling the homepage
 		add_action('wp_ajax_crawl_homepage', array( $this, 'ajax_crawl_homepage' ) );
 		add_action('wp_ajax_nopriv_crawl_homepage', array( $this, 'ajax_crawl_homepage' ) );
 	}
 
+	/**
+	 * Register the plugin's submenu page under the Settings menu.
+	 */
 	public function register_submenu() {
 		add_submenu_page(
 			'options-general.php',
@@ -39,6 +63,9 @@ class Admin {
 		);
 	}
 
+	/**
+	 * Output the content of the plugin's administration page.
+	 */
 	public  function output_page_content() { ?>
 		<div class="wrap seo-link-explorer">
 			<h1><?php echo __( 'SEO Link Explorer', 'seo-link-explorer' ); ?></h1>
@@ -65,8 +92,13 @@ class Admin {
 		<?php
 	}
 
+	/**
+	 * Enqueue necessary scripts and styles for the administration page.
+	 *
+	 * @param string $hook The current admin page hook.
+	 */
 	public function enqueue_scripts( $hook ) {
-		// Enqueue JS only on this page. If not, bail out.
+		// Enqueue JS only on the plugin's administration submenu page. If not, bail out.
 		if( 'settings_page_seo-link-explorer' != $hook ) {
 			return;
 		}
@@ -80,6 +112,9 @@ class Admin {
 		));
 	}
 
+	/**
+	 * Handle AJAX request for crawling the homepage.
+	 */
 	public function ajax_crawl_homepage() {
 		check_ajax_referer('seo-link-explorer-nonce', 'security');
 
@@ -90,6 +125,10 @@ class Admin {
 		echo $response;
 		wp_die();
 	}
+
+	/**
+	 * Display linked pages and perform crawling.
+	 */
 	public function display_linked_pages() {
 		$homepage_url     = home_url();
 		$homepage_content = wp_remote_get( $homepage_url )[ 'body' ];
@@ -125,6 +164,12 @@ class Admin {
 		}
 	}
 
+	/**
+	 * Generate HTML for linked pages.
+	 *
+	 * @param array $linked_pages Array of linked pages.
+	 * @return string Generated HTML.
+	 */
 	public function linked_pages_html( $linked_pages ) {
 		$links_content = '<h2>' . __( 'Linked Pages:', 'seo-link-explorer' ) . '</h2>';
 		$links_content .= '<ul>';
