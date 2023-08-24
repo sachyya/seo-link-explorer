@@ -114,7 +114,7 @@ class Admin {
 				update_option( 'seo-link-explorer', $linked_pages );
 
 				SaveFile::save_sitemap_html( $links_content );
-				SaveFile::save_page_html( $links_content );
+				SaveFile::save_page_html( $homepage_html_version );
 			} else {
 				echo 'No linked pages found on the homepage.';
 			}

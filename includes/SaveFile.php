@@ -24,7 +24,7 @@ class SaveFile {
 		file_put_contents( $file_path, $content );
 	}
 
-	public static function save_page_html( $content ) {
+	public static function save_sitemap_html( $content ) {
 		$homepage_html_version = '<!DOCTYPE html>
 				<html>
 				<head>
@@ -35,11 +35,11 @@ class SaveFile {
 				</body>
 				</html>';
 
-		self::save_file( 'homepage.html', $homepage_html_version );
+		self::save_file( 'sitemap.html', $homepage_html_version );
 	}
 
-	public static function save_sitemap_html( $content ) {
-		self::save_file( 'sitemap.html', $content );
+	public static function save_page_html( $content ) {
+		self::save_file( 'homepage.html', $content );
 	}
 
 	public static function get_sitemap_url() {
