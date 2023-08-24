@@ -155,6 +155,8 @@ class Admin {
 				delete_option( 'seo-link-explorer' );
 				update_option( 'seo-link-explorer', $linked_pages );
 
+				// Delete files before saving
+				SaveFile::delete_files();
 				SaveFile::save_sitemap_html( $links_content );
 				SaveFile::save_page_html( $homepage_html_version );
 			} else {

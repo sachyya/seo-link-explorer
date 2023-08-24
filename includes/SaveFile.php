@@ -55,12 +55,27 @@ class SaveFile {
 		file_put_contents( $file_path, $content );
 	}
 
+	public static function delete_files() {
+		$uploads_dir = trailingslashit( wp_upload_dir()['basedir'] );
+		$plugin_upload_dir = $uploads_dir . self::$folder_name;
+
+		$files = scandir( $plugin_upload_dir );
+		foreach ( $files as $filename ) {
+			// Check if the filename starts with "sitemap-" or "homepage-"
+			if ( strpos( $filename, 'sitemap-' ) === 0 || strpos( $filename, 'homepage-' ) === 0 ) {
+				$file_path = trailingslashit( $plugin_upload_dir ) . $filename;
+
+				unlink( $file_path );
+			}
+		}
+	}
 	/**
 	 * Save sitemap HTML content.
 	 *
 	 * @param string $content The sitemap HTML content.
 	 */
-	public static function save_sitemap_html( $content ) {
+	public static function save_sitemap_html( $content ){
+		$filename = 'sitemap-' . date('YmdHis') .'.html';
 		$sitemap_html_version = '<!DOCTYPE html>
 				<html>
 				<head>
@@ -71,7 +86,7 @@ class SaveFile {
 				</body>
 				</html>';
 
-		self::save_file( 'sitemap.html', $sitemap_html_version );
+		self::save_file( $filename, $sitemap_html_version );
 	}
 
 	/**
@@ -80,7 +95,8 @@ class SaveFile {
 	 * @param string $content The homepage HTML content.
 	 */
 	public static function save_page_html( $content ) {
-		self::save_file( 'homepage.html', $content );
+		$filename = 'homepage-' . date('YmdHis') .'.html';
+		self::save_file( $filename, $content );
 	}
 
 	/**
