@@ -71,7 +71,7 @@ class Cron {
 	 * Execute the crawler on the defined schedule.
 	 */
 	public function run_crawler_on_schedule() {
-		$admin_instance = Setting ::get_instance();
-		$admin_instance->display_linked_pages();
+		$setting_instance = Setting ::get_instance();
+		$setting_instance->display_linked_pages();
 	}
 }

@@ -4,6 +4,7 @@ namespace SEOLinkExplorer;
 
 use SEOLinkExplorer\Setting;
 use SEOLinkExplorer\Cron;
+use SEOLinkExplorer\Event;
 
 /**
  * Class Init
@@ -115,6 +116,9 @@ final class Init {
 
 		// Initialize the Setting class
 		Setting ::get_instance();
+
+		// Initialize the Setting class
+		Event ::get_instance();
 
 		// Initialize the Cron class
 		Cron::get_instance();
