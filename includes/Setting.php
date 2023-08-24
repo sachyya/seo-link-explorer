@@ -5,7 +5,7 @@ namespace SEOLinkExplorer;
 use SEOLinkExplorer\File;
 
 /**
- * Class Admin
+ * Class Setting
  *
  * This class handles the administration interface of the SEO Link Explorer plugin.
  * It registers the plugin's submenu, enqueues scripts, and manages AJAX requests.
@@ -13,21 +13,21 @@ use SEOLinkExplorer\File;
  * @package SEOLinkExplorer
  * @since 1.0.0
  */
-class Admin {
+class Setting {
 
 	/**
-	 * The singleton instance of the Admin class.
+	 * The singleton instance of the Setting class.
 	 *
-	 * @var Admin|null
+	 * @var Setting|null
 	 */
-	public static ?Admin $_instance = null;
+	public static ?Setting $_instance = null;
 
 	/**
-	 * Get the singleton instance of the Admin class.
+	 * Get the singleton instance of the Setting class.
 	 *
-	 * @return Admin|null The Admin instance.
+	 * @return Setting|null The Setting instance.
 	 */
-	public static function get_instance(): ?Admin {
+	public static function get_instance(): ?Setting {
 
 		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self();
@@ -37,7 +37,7 @@ class Admin {
 	}
 
 	/**
-	 * Constructor for the Admin class.
+	 * Constructor for the Setting class.
 	 *
 	 * Sets up actions and hooks related to the administration interface.
 	 */

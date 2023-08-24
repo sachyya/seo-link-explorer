@@ -1,7 +1,7 @@
 <?php
 namespace SEOLinkExplorer;
 
-use SEOLinkExplorer\Admin;
+use SEOLinkExplorer\Setting;
 
 /**
  * Class Cron
@@ -71,7 +71,7 @@ class Cron {
 	 * Execute the crawler on the defined schedule.
 	 */
 	public function run_crawler_on_schedule() {
-		$admin_instance = Admin::get_instance();
+		$admin_instance = Setting ::get_instance();
 		$admin_instance->display_linked_pages();
 	}
 }

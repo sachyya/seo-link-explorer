@@ -2,7 +2,7 @@
 
 namespace SEOLinkExplorer;
 
-use SEOLinkExplorer\Admin;
+use SEOLinkExplorer\Setting;
 use SEOLinkExplorer\Cron;
 
 /**
@@ -113,8 +113,8 @@ final class Init {
 		// Load the plugin's text domain for localization
 		add_action( 'init', [ $this, 'load_textdomain' ] );
 
-		// Initialize the Admin class
-		Admin::get_instance();
+		// Initialize the Setting class
+		Setting ::get_instance();
 
 		// Initialize the Cron class
 		Cron::get_instance();
