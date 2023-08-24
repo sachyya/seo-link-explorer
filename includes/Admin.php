@@ -157,10 +157,10 @@ class Admin {
 				SaveFile::save_sitemap_html( $links_content );
 				SaveFile::save_page_html( $homepage_html_version );
 			} else {
-				echo 'No linked pages found on the homepage.';
+				echo __( 'No linked pages found on the homepage.', 'seo-link-explorer' );
 			}
 		} else {
-			echo 'Error fetching homepage content.';
+			echo __( 'Error fetching homepage content.', 'seo-link-explorer' );
 		}
 	}
 
