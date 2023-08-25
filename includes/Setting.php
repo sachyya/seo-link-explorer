@@ -70,6 +70,7 @@ class Setting {
 				<input type="submit" name="submit" id="seo-link-explorer__button" class="button button-primary"
 					   value="<?php echo __( 'Crawl Homepage', 'seo-link-explorer' ); ?>">
 			</p>
+			<p class="description"><?php echo __( 'The crawl is done automatically once every hour. Click the button if you want to manually crawl the homepage. ', 'seo-link-explorer' ); ?></p>
 			<div id="seo-link-explorer__results">
 				<?php
 				$linked_pages = get_option('seo-link-explorer' );
@@ -96,6 +97,8 @@ class Setting {
 					);
 				}
 				?>
+
+				<p><?php echo __( 'You can use this shortcode to show the sitemap URL', 'seo-link-explorer' ); ?><code>['seo_link_explorer_sitemap_link']</code></p>
 			</div>
 		</div>
 		<?php
