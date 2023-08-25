@@ -1,0 +1,90 @@
+# Copyright (C) 2023 sachyya-sachet
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: SEO Link Exporer 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/seo-link-explorer\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-08-25T08:41:00+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: seo-link-explorer\n"
+
+#. Plugin Name of the plugin
+msgid "SEO Link Exporer"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "#"
+msgstr ""
+
+#. Description of the plugin
+msgid "Plugin to see how the site's web pages are linked to home page so that you can manually search"
+msgstr ""
+
+#. Author of the plugin
+msgid "sachyya-sachet"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://sachyya.github.io/"
+msgstr ""
+
+#: includes/Cron.php:56
+msgid "SEO Link Explorer Every Hour"
+msgstr ""
+
+#: includes/Event.php:126
+msgid "No linked pages found on the homepage."
+msgstr ""
+
+#: includes/Event.php:129
+msgid "Error fetching homepage content."
+msgstr ""
+
+#: includes/Event.php:143
+msgid "Linked Pages:"
+msgstr ""
+
+#: includes/Init.php:95
+msgid "\"%1$s\" requires \"%2$s\" version %3$s or greater."
+msgstr ""
+
+#: includes/Init.php:96
+#: includes/Setting.php:55
+#: includes/Setting.php:56
+#: includes/Setting.php:68
+msgid "SEO Link Explorer"
+msgstr ""
+
+#: includes/Init.php:97
+msgid "PHP"
+msgstr ""
+
+#: includes/Setting.php:71
+msgid "Crawl Homepage"
+msgstr ""
+
+#: includes/Setting.php:73
+msgid "The crawl is done automatically once every hour. Click the button if you want to manually crawl the homepage. "
+msgstr ""
+
+#: includes/Setting.php:87
+msgid "Your sitemap is available %1$shere%2$s"
+msgstr ""
+
+#: includes/Setting.php:94
+msgid "Your sitemap will be available %1$shere%2$s once you crawl it."
+msgstr ""
+
+#: includes/Setting.php:101
+msgid "You can use this shortcode to show the sitemap URL"
+msgstr ""
+
+#: includes/Shortcode.php:61
+msgid "View Sitemap"
+msgstr ""
