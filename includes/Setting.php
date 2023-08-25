@@ -21,7 +21,7 @@ class Setting {
 	 *
 	 * @var Setting|null
 	 */
-	public static ?Setting $_instance = null;
+	public static $_instance = null;
 
 	/**
 	 * Get the singleton instance of the Setting class.
@@ -66,7 +66,7 @@ class Setting {
 	public  function output_page_content() { ?>
 		<div class="wrap seo-link-explorer">
 			<h1><?php echo __( 'SEO Link Explorer', 'seo-link-explorer' ); ?></h1>
-			<p class="submit">
+			<p class="spinner" style="visibility: visible"></p>
 				<input type="submit" name="submit" id="seo-link-explorer__button" class="button button-primary"
 					   value="<?php echo __( 'Crawl Homepage', 'seo-link-explorer' ); ?>">
 			</p>

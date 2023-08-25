@@ -20,7 +20,7 @@ class Event {
 	 *
 	 * @var Event|null
 	 */
-	public static ?Event $_instance = null;
+	public static $_instance = null;
 
 	/**
 	 * Get the singleton instance of the Event class.
@@ -137,10 +137,13 @@ class Event {
 	 * @return string Generated HTML.
 	 */
 	public static function linked_pages_html( $linked_pages ) {
+		// First remove the empty items and count the occurrences of each item to show it
+		$linked_pages_count = array_count_values( array_filter( $linked_pages ) );
+
 		$links_content = '<h2>' . __( 'Linked Pages:', 'seo-link-explorer' ) . '</h2>';
 		$links_content .= '<ul>';
-		foreach ( $linked_pages as $link ) {
-			$links_content .= '<li><a href="' . esc_url( $link ) . '">' . esc_html( $link ) . '</a></li>';
+		foreach ( $linked_pages_count as $link => $count ) {
+			$links_content .= '<li><a href="' . esc_url( $link ) . '">' . esc_html( $link ) . '</a> (' . $count . ')</li>';
 		}
 		$links_content .= '</ul>';
 

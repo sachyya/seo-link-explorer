@@ -20,7 +20,7 @@ class Shortcode {
 	 *
 	 * @var Shortcode|null
 	 */
-	public static ?Shortcode $_instance = null;
+	public static $_instance = null;
 
 	/**
 	 * Get the singleton instance of the Shortcode class.

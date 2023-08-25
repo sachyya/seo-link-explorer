@@ -18,7 +18,7 @@ class File {
 	 *
 	 * @var File|null
 	 */
-	public static ?File $_instance = null;
+	public static $_instance = null;
 
 	/**
 	 * The folder name for storing plugin-related files.

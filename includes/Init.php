@@ -16,8 +16,8 @@ use SEOLinkExplorer\Shortcode;
  * @package SEOLinkExplorer
  * @since 1.0.0
  */
-final class Init {
-
+final class Init
+{
 	/**
 	 * Minimum required PHP version for the plugin.
 	 */
@@ -28,7 +28,7 @@ final class Init {
 	 *
 	 * @var Init|null
 	 */
-	public static ?Init $_instance = null;
+	public static $_instance = null;
 
 	/**
 	 * Get the singleton instance of the Init class.

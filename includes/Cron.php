@@ -11,14 +11,14 @@ use SEOLinkExplorer\Setting;
  * @package SEOLinkExplorer
  * @since 1.0.0
  */
-class Cron {
-
+class Cron
+{
 	/**
 	 * The singleton instance of the Cron class.
 	 *
 	 * @var Cron|null
 	 */
-	public static ?Cron $_instance = null;
+	public static $_instance = null;
 
 	/**
 	 * Get the singleton instance of the Cron class.
