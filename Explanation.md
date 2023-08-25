@@ -69,4 +69,9 @@ Shortcode provides the shortcode: `[seo_link_explorer_sitemap_link]` to show the
 
 `Shortcode` - Provides shortcode to show sitemap URL
 
+## Conclusion
+**SEO Link Explorer** crawls/explorer your homepage's links. With an automatic hourly crawl feature and a button for manual initiation, it ensures that the homepage is properly crawled.
+
+It displays the crawl findings on the admin page, but it also stores the crawl results in the database. It generates a sitemap.html file and generates an HTML version of your homepage. To maintain a cleanup, it tidies up previous database results and deletes outdated files before regenerating them. Lastly, it provides visitors the privilege to view the generated sitemap.html.
+
 
