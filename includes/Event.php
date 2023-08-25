@@ -8,7 +8,7 @@ use SEOLinkExplorer\File;
  * Class Event
  *
  * This class handles the administration interface of the SEO Link Explorer plugin.
- * It registers the plugin's submenu, enqueues scripts, and manages AJAX requests.
+ * It registers the enqueues scripts, and manages AJAX requests.
  *
  * @package SEOLinkExplorer
  * @since 1.0.0
